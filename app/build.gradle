@@ -14,15 +14,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            storeFile file("keystore.jks")
-            storePassword "K###La7p"
-            keyAlias "exodus-key"
-            keyPassword "K###La7p"
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
