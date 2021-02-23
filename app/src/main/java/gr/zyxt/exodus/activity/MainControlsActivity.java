@@ -1,43 +1,49 @@
 package gr.zyxt.exodus.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import gr.zyxt.exodus.R;
-import gr.zyxt.exodus.adapter.ReasonAdapter;
-import gr.zyxt.exodus.enumeration.ReasonEnum;
-import gr.zyxt.exodus.preference.Pref;
-import gr.zyxt.exodus.util.Utils;
-
-import android.content.Intent;
-import android.net.Uri;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.ImageView;
 
-import static android.content.Intent.ACTION_VIEW;
+import java.util.ArrayList;
 
-public class MainControlsActivity extends AppCompatActivity implements ReasonAdapter.OnItemClickListener {
-    @BindView(R.id.settings)
-    ImageView mSettings;
-    @BindView(R.id.reason_list)
-    RecyclerView mReasonList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import gr.zyxt.exodus.R;
+import gr.zyxt.exodus.adapter.ReasonAdapter;
+import gr.zyxt.exodus.core.contracts.MainControlsContract;
+import gr.zyxt.exodus.core.presenters.MainControlsPresenter;
+import gr.zyxt.exodus.enumeration.ReasonEnum;
 
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+public class MainControlsActivity extends AppCompatActivity implements
+        ReasonAdapter.OnItemClickListener,
+        MainControlsContract.View {
+    private RecyclerView mReasonList;
+
+    private MainControlsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_controls);
-        ButterKnife.bind(this);
 
-        mSettings.setOnClickListener(v -> goToSettings());
+        setPresenter(new MainControlsPresenter(this));
 
-        loadList();
+        ImageView settings = findViewById(R.id.settings);
+
+        mReasonList = findViewById(R.id.reason_list);
+
+        settings.setOnClickListener(v -> {
+            if (presenter != null) presenter.goToSettings();
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (presenter != null) presenter.loadReasons();
     }
 
     @Override
@@ -45,29 +51,39 @@ public class MainControlsActivity extends AppCompatActivity implements ReasonAda
         // Prevent user to click the back button
     }
 
-    private void goToSettings() {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            startActivity(new Intent(this, SettingsActivity.class));
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }, 200);
-    }
-
-    private void loadList() {
-        mAdapter = new ReasonAdapter(Utils.getReasonList(), this);
-        mLayoutManager = new LinearLayoutManager(this);
-        mReasonList.setLayoutManager(mLayoutManager);
-        mReasonList.setHasFixedSize(false);
-        mReasonList.setAdapter(mAdapter);
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        presenter = null;
+        super.onDestroy();
     }
 
     @Override
     public void onItemClick(ReasonEnum reason, int position) {
-        String fullName = Pref.getInstance().getFullName();
-        String address = Pref.getInstance().getAddress();
-        String smsBody = getString(R.string.sms_text, ("" + (position + 1)), fullName, address);
-        Intent intent = new Intent(ACTION_VIEW, Uri.parse("sms:13033"));
-        intent.putExtra("sms_body", smsBody);
-        startActivity(Intent.createChooser(intent, "Αποστολή μέσω: "));
+        if (presenter != null) presenter.sendSMS(reason, position);
+    }
+
+    @Override
+    public void setPresenter(MainControlsContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void onLoadReasons(ArrayList<ReasonEnum> reasons) {
+        ReasonAdapter adapter = new ReasonAdapter(reasons, this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mReasonList.setLayoutManager(layoutManager);
+        mReasonList.setHasFixedSize(false);
+        mReasonList.setAdapter(adapter);
+    }
+
+    @Override
+    public Context provideContext() {
+        return this;
+    }
+
+    @Override
+    public Activity provideActivity() {
+        return this;
     }
 }

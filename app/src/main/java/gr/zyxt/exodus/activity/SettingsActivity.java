@@ -1,36 +1,43 @@
 package gr.zyxt.exodus.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import gr.zyxt.exodus.R;
-import gr.zyxt.exodus.preference.Pref;
-
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity {
-    @BindView(R.id.full_name)
-    EditText mFullName;
-    @BindView(R.id.address)
-    EditText mAddress;
-    @BindView(R.id.save_button)
-    Button mSave;
+import androidx.appcompat.app.AppCompatActivity;
+import gr.zyxt.exodus.R;
+import gr.zyxt.exodus.core.contracts.SettingsContract;
+import gr.zyxt.exodus.core.presenters.SettingsPresenter;
+
+public class SettingsActivity extends AppCompatActivity implements SettingsContract.View {
+    private EditText mFullName;
+    private EditText mAddress;
+
+    private SettingsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        ButterKnife.bind(this);
 
-        mSave.setOnClickListener(v -> save());
+        setPresenter(new SettingsPresenter(this));
 
-        loadData();
+        mFullName = findViewById(R.id.full_name);
+        mAddress = findViewById(R.id.address);
+
+        Button save = findViewById(R.id.save_button);
+        save.setOnClickListener(v -> {
+            String fullName = mFullName.getText().toString();
+            String address = mAddress.getText().toString();
+
+            presenter.save(fullName, address);
+        });
+
+        presenter.loadData();
     }
 
     @Override
@@ -42,26 +49,30 @@ public class SettingsActivity extends AppCompatActivity {
         }, 200);
     }
 
-    private void loadData() {
-        String fullName = Pref.getInstance().getFullName().trim();
-        String address = Pref.getInstance().getAddress().trim();
-
-        mFullName.setText(fullName);
-        mAddress.setText(address);
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 
-    private void save() {
-        String fullName = mFullName.getText().toString();
-        String address = mAddress.getText().toString();
+    @Override
+    public void setPresenter(SettingsContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
-        if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(address)) {
-            Toast.makeText(this, "Παρακαλώ συμπληρώστε το πεδίο", Toast.LENGTH_LONG).show();
-            return;
-        }
+    @Override
+    public Context provideContext() {
+        return this;
+    }
 
-        Pref.getInstance().setFullName(fullName.trim());
-        Pref.getInstance().setAddress(address.trim());
+    @Override
+    public Activity provideActivity() {
+        return this;
+    }
 
-        onBackPressed();
+    @Override
+    public void onLoadData(String fullName, String address) {
+        mFullName.setText(fullName);
+        mAddress.setText(address);
     }
 }

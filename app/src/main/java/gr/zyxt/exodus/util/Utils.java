@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import gr.zyxt.exodus.enumeration.ReasonEnum;
 
 /**
+ * A utility class.
+ *
  * @author Anastasios Daris (t.daris@7linternational.com)
  * Created on 24, March, 2020
  */
 public class Utils {
+    /**
+     * Returns a list with the {@link ReasonEnum} enumerations.
+     *
+     * @return a list of {@link ReasonEnum}
+     */
     public static ArrayList<ReasonEnum> getReasonList() {
         ArrayList<ReasonEnum> reasonList = new ArrayList<>();
         reasonList.add(0, ReasonEnum.REASON_1);

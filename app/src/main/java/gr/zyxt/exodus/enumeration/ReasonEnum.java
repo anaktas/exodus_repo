@@ -4,6 +4,8 @@ import androidx.annotation.StringRes;
 import gr.zyxt.exodus.R;
 
 /**
+ * THe available options for reasoning.
+ *
  * @author Anastasios Daris (t.daris@7linternational.com)
  * Created on 24, March, 2020
  */
