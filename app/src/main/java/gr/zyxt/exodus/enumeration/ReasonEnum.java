@@ -15,7 +15,8 @@ public enum ReasonEnum {
     REASON_3(R.string.reason_3),
     REASON_4(R.string.reason_4),
     REASON_5(R.string.reason_5),
-    REASON_6(R.string.reason_6);
+    REASON_6(R.string.reason_6),
+    REASON_7(R.string.reason_7);
 
     @StringRes
     private int description;

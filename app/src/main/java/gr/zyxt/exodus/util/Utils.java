@@ -18,12 +18,13 @@ public class Utils {
      */
     public static ArrayList<ReasonEnum> getReasonList() {
         ArrayList<ReasonEnum> reasonList = new ArrayList<>();
-        reasonList.add(0, ReasonEnum.REASON_1);
-        reasonList.add(1, ReasonEnum.REASON_2);
-        reasonList.add(2, ReasonEnum.REASON_3);
-        reasonList.add(3, ReasonEnum.REASON_4);
-        reasonList.add(4, ReasonEnum.REASON_5);
-        reasonList.add(5, ReasonEnum.REASON_6);
+        reasonList.add(0, ReasonEnum.REASON_7);
+        reasonList.add(1, ReasonEnum.REASON_1);
+        reasonList.add(2, ReasonEnum.REASON_2);
+        reasonList.add(3, ReasonEnum.REASON_3);
+        reasonList.add(4, ReasonEnum.REASON_4);
+        reasonList.add(5, ReasonEnum.REASON_5);
+        reasonList.add(6, ReasonEnum.REASON_6);
 
         return reasonList;
     }

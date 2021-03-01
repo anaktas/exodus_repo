@@ -10,7 +10,8 @@
         android:roundIcon="@drawable/ic_robot_72"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.EnterShopNameActivity" />
+        <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.MainControlsActivity" />
         <activity android:name=".activity.onboarding.WelcomeActivity" />
         <activity android:name=".activity.onboarding.EnterAddressActivity" />

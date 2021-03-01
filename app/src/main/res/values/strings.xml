@@ -2,7 +2,9 @@
     <string name="app_name">Exodus</string>
     <string name="welcome_description">Καλώς ήρθατε.\n\n Στις παρακάτω οθόνες θα χρειαστεί να εισάγετε το ονοματεπώνυμο και την διέθυνση σας.\n\n Αυτά τα δεδομένα θα αποθηκευθούν τοπικά στο κινητό σας και θα χρησιμοποιηθούν αποκλειστικά και μόνο για να δημιουργηθει το σχετικό μήνυμα προς αποστολή στο 13033.</string>
     <string name="enter_full_name_description">Παρακαλώ εισάγετε το ονοματεπώνυμό σας στο παρακάτω πεδίο για να αποθηκευτεί.</string>
+    <string name="enter_shop_name_description">Παρακαλώ εισάγετε το όνομα του καταστήματος:</string>
     <string name="enter_full_name_hint">π.χ. ΓΙΩΡΓΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ</string>
+    <string name="enter_shop_name_hint">π.χ. ΖΙΩΓΑ ΕΜΠΟΡΙΚΟ ΚΕΝΤΡΟ</string>
     <string name="enter_address_description">Παρακαλώ εισάγετε τη διεύθυνσή σας στο παρακάτω πεδίο για να αποθηκευτεί.</string>
     <string name="enter_address_hint">π.χ. ΓΡΗΓΟΡΙΟΥ ΛΑΜΠΡΑΚΗ 4</string>
     <string name="main_control_description">Επιλέξτε μια από τις παρακάτω κατηγορίες εξόδου.</string>
@@ -12,7 +14,9 @@
     <string name="reason_4">4. Κίνηση για παροχή βοήθειας σε ανθρώπους που βρίσκονται σε ανάγκη.</string>
     <string name="reason_5">5. Μετάβαση σε τελετή (π.χ. κηδεία, γάμος, βάφτιση) υπό τους όρους που προβλέπει ο νόμος ή μετάβαση διαζευγμένων γονέων ή γονέων που τελούν σε διάσταση που είναι αναγκαία για τη διασφάλιση της επικοινωνίας γονέων και τέκνων, σύμφωνα με τις κείμενες διατάξεις.</string>
     <string name="reason_6">6. Σωματική άσκηση σε εξωτερικό χώρο ή κίνηση με κατοικίδιο ζώο, ατομικά ή ανά δύο άτομα, τηρώντας στην τελευταία αυτή περίπτωση την αναγκαία απόσταση 1,5 μέτρου.</string>
+    <string name="reason_7">13032</string>
     <string name="sms_text">%1$s %2$s %3$s</string>
+    <string name="sms_txt_shop">ΜΕΤΑΚΙΝΗΣΗ ΣΕ %1$s</string>
     <string name="full_name">Ονοματεπώνυμο:</string>
     <string name="address">Διεύθυνση:</string>
     <string name="continue_button">ΣΥΝΕΧΕΙΑ</string>
