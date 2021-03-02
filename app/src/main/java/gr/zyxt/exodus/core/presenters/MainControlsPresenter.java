@@ -44,7 +44,7 @@ public class MainControlsPresenter implements MainControlsContract.Presenter {
             } else {
                 String fullName = Pref.getInstance().getFullName();
                 String address = Pref.getInstance().getAddress();
-                String smsBody = view.provideContext().getString(R.string.sms_text, ("" + (position + 1)), fullName, address);
+                String smsBody = view.provideContext().getString(R.string.sms_text, ("" + position), fullName, address);
                 Intent intent = new Intent(ACTION_VIEW, Uri.parse("sms:13033"));
                 intent.putExtra("sms_body", smsBody);
                 view.provideContext().startActivity(Intent.createChooser(intent, "Αποστολή μέσω: "));
